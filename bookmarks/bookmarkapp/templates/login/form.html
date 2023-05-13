@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %} cashmoney {% endblock %}
+
+{% block content %}
+<div class="container">
+    <form class="form-group" action="submit">
+        {% csrf_token %}
+        <label for="fullname">What is your name?</label>
+        <input type="text" name="user-fullname" placeholder="Enter your name">
+        <label>What is your email?</label>
+        <input type="email" name="user-email" placeholder="Enter your email">
+        <button>Next</button>
+    </form>
+</div>
+{% endblock %}
