@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-x_2ge(8_)-258*w82)08gz07nl$t54&vu&j_ynn)5dh*8v1o+h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -113,15 +112,47 @@ USE_I18N = True
 
 USE_TZ = True
 
+VITE_APP_DIR = os.path.join(BASE_DIR, "frontend/src")
+# These are the settings you should have for everything to work properly.
+# Add these to your main settings.py file, or modify it accordingly.
+
+# Needed for production. Avoid using '*'. FOR DEV ITS FINE TO USE *
+# ALLOWED_HOSTS = ['your-production-domain.com']
+ALLOWED_HOSTS = ['*']
+
+# Needed for 'debug' to be available inside templates.
+# https://docs.djangoproject.com/en/3.2/ref/templates/api/#django-template-context-processors-debug
+INTERNAL_IPS = ['127.0.0.1:']
+
+# Vite App Dir: point it to the folder your vite app is in.
+# Vite App Dir: point it to the folder your vite app is in.
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# You may change these, but it's important that the dist folder is includedself.
+# If it's not, collectstatic won't copy your bundle to production.
 
+STATIC_URL = "/static/"
+
+
+VITE_APP_DIR = os.path.join(BASE_DIR, "frontend/src")
+VITE_APP_STATIC_DIR = "static"
+
+# Additional locations of static files
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'bookmarkapp/static_compiled')
+    os.path.join(VITE_APP_DIR, "dist"),
 ]
+
+# OLD FILES KEEPING FOR DOCUMENTATION IN CASE I FUCK THINGS UP...
+# # Static files (CSS, JavaScript, Images)
+# # https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+# STATIC_URL = 'static/'
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'bookmarkapp/static_compiled')
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

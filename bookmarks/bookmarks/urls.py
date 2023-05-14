@@ -15,10 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path
 from bookmarkapp import views
+from django.conf import settings
+from django.views.static import serve
+from django.views.generic import TemplateView 
+
+frontend_urls = [
+    re_path(r"^.*$",TemplateView.as_view(template_name="base.html"))
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name="index")
+    # api goes here
+    re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATICFILES_DIRS}),
+    re_path(r"^.*$",TemplateView.as_view(template_name="base.html")),
+    path("index", TemplateView.as_view(template_name="base.html"))
 ]
